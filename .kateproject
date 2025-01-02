@@ -1,0 +1,23 @@
+{
+    "lspclient": {
+        "servers": {
+            "rust": {
+                "initializationOptions": {
+                    "cargo": {
+                        "features": "all"
+                    }
+                },
+                "command": ["rust-analyzer"],
+                "path": [
+                    "%{ENV:CARGO_HOME}/bin",
+                    "%{ENV:HOME}/.cargo/bin",
+                    "%{ENV:USERPROFILE}/.cargo/bin"
+                ],
+                "url": "https://rust-analyzer.github.io",
+                "useWorkspace": true,
+                "rootIndicationFileNames": ["Cargo.lock", "Cargo.toml"],
+                "highlightingModeRegex": "^Rust$"
+            }
+        }
+    }
+}

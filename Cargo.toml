@@ -1,0 +1,33 @@
+[package]
+name = "tor-check"
+version = "0.1.0"
+edition = "2021"
+authors = ["Joffrey Darcq <j-off@live.fr>"]
+description = "Extend your favorite HTTP client with a Tor verification feature"
+readme = "README.md"
+repository = "https://github.com/Joffr3y/tor_check"
+license = "MIT"
+keywords = ["tor", "http", "request", "privacy", "anonymity"]
+categories = ["web-programming::http-client"]
+
+[features]
+default = ["reqwest", "log"]
+ureq = ["dep:ureq"]
+reqwest = ["dep:reqwest"]
+log = ["dep:log"]
+
+[dependencies]
+log = { version = "0.4", optional = true }
+reqwest = { version = "0.12.11", optional = true }
+ureq = { version = "2.12.1", optional = true }
+
+[dev-dependencies]
+env_logger = { version = "0.11.6", default-features = false }
+log = "0.4"
+reqwest = { version = "0.12.11", features = ["socks"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }
+ureq = { version = "2.12.1", features = ["socks-proxy"] }
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
