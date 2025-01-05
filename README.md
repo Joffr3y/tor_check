@@ -1,5 +1,10 @@
 # tor_check
 
+[![crates.io](https://img.shields.io/crates/v/tor_check.svg)](https://crates.io/crates/tor_check)
+[![Documentation](https://docs.rs/tor-check/badge.svg)](https://docs.rs/tor-check)
+[![MIT](https://img.shields.io/crates/l/tor_check.svg)](./LICENSE)
+[![CI](https://github.com/joffr3y/tor_check/workflows/CI/badge.svg)](https://github.com/joffr3y/tor_check/actions?query=workflow:CI)
+
 Extend your favorite HTTP client with a Tor verification feature.
 
 ## Usage
