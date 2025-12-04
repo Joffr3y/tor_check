@@ -101,9 +101,11 @@ impl TorCheck for ureq::Agent {
     type Result = Result<Self, ureq::Error>;
 
     fn tor_check(self) -> Self::Result {
-        let resp = self.get(TOR_CHECK_URL).call()?.into_reader();
+        let resp = self.get(TOR_CHECK_URL).call()?;
+        let body = resp.into_body();
+        let reader = body.into_reader();
 
-        tor_check_result(self, io::BufReader::new(resp))
+        tor_check_result(self, io::BufReader::new(reader))
     }
 }
 

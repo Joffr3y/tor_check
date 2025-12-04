@@ -41,10 +41,10 @@ The `ureq` feature is required.
 use tor_check::{TorCheck, TorCheckError};
 
 fn main() -> Result<(), TorCheckError<ureq::Error>> {
-    let client = ureq::AgentBuilder::new()
-        .proxy(ureq::Proxy::new("socks5://127.0.0.1:9050")?)
-        .build()
-        .tor_check()?;
+    let config = ureq::Agent::config_builder()
+        .proxy(Some(ureq::Proxy::new("socks5://127.0.0.1:9050")?))
+        .build();
+    let client = ureq::Agent::from(config).tor_check()?;
 
     // Ok, I am connected to Tor.
     client.get("https://example.com/").call()?;
@@ -68,7 +68,7 @@ fn main() -> Result<(), Error<ureq::Error>> {
         .init();
 
     // Print the check result
-    match ureq::Agent::new().tor_check() {
+    match ureq::agent().tor_check() {
         Ok(_) => println!("Crongratulation!"),
         Err(Error::HttpClient(err)) => println!("HTTP error: {err}"),
         Err(Error::PageParsing(err)) => println!("I/O error: {err}"),
