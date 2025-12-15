@@ -55,26 +55,24 @@ fn main() -> Result<(), TorCheckError<ureq::Error>> {
 
 ## Troubles and error handling
 
-The check depends on [TorButton](https://check.torproject.org/?TorButton=True) Web page result.  
-If you suspect a Web page update or an issue in the parsing process, you can obtain debug information with the `log` feature.
+This crate use [check.torproject.org](https://check.torproject.org/api/ip)
+API result.
+
+Possible errors returned.
 
 ```rust,no_run
 use tor_check::{TorCheck, TorCheckError as Error};
 
-fn main() -> Result<(), Error<ureq::Error>> {
-    // Enable logger output
-    env_logger::builder()
-        .filter_level(log::LevelFilter::Debug)
-        .init();
-
-    // Print the check result
-    match ureq::agent().tor_check() {
-        Ok(_) => println!("Crongratulation!"),
-        Err(Error::HttpClient(err)) => println!("HTTP error: {err}"),
-        Err(Error::PageParsing(err)) => println!("I/O error: {err}"),
-        Err(err) => println!("Danger! {err}"),
-    };
-
-    Ok(())
+match ureq::agent().tor_check() {
+    Ok(_) => println!("Crongratulation!"),
+    Err(err) if err.is_decode() => {
+        eprintln!("Malformed response: {err}");
+        eprintln!("Check https://check.torproject.org/api/ip");
+    }
+    Err(Error::HttpClient(err)) => {
+        eprintln!("HTTP error: {err}");
+        eprintln!("Check Tor services https://status.torproject.org/");
+    }
+    Err(err @ Error::YouAreNotUsingTor) => eprintln!("Danger! {err}"),
 }
 ```
