@@ -1,6 +1,6 @@
 [package]
 name = "tor-check"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 authors = ["Joffrey Darcq <j-off@live.fr>"]
 description = "Extend your favorite HTTP client with a Tor verification feature"
