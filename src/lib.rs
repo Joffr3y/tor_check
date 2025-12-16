@@ -1,4 +1,3 @@
-#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 #![doc = include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/README.md"))]
 
 use std::{error, fmt};
